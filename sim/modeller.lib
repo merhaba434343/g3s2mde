@@ -37,3 +37,16 @@ Rp a b 1
 Cp b gnd 530n
 Ro b out 0.5
 .ends
+
+* CD4093 tek kapi: Schmitt girisli NAND. Esikler VT+ = 0,59 Vdd, VT- = 0,39 Vdd (9 V'ta tipik)
+* cikis direnci ~300 ohm (9 V'ta tipik)
+.subckt NAND4093 a b vdd vss y
+Ba qa_raw vss V = (v(a,vss) > 0.59*v(vdd,vss)) ? 1 : ((v(a,vss) < 0.39*v(vdd,vss)) ? 0 : (v(qa,vss) > 0.5 ? 1 : 0))
+Ra qa_raw qa 1k
+Ca qa vss 1p
+Bb qb_raw vss V = (v(b,vss) > 0.59*v(vdd,vss)) ? 1 : ((v(b,vss) < 0.39*v(vdd,vss)) ? 0 : (v(qb,vss) > 0.5 ? 1 : 0))
+Rb qb_raw qb 1k
+Cb qb vss 1p
+Bo o vss V = (v(qa,vss) > 0.5 && v(qb,vss) > 0.5) ? 0 : v(vdd,vss)
+Ro o y 300
+.ends

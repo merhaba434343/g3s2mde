@@ -1,0 +1,9 @@
+* Ucuz verici + 3 km hat
+.include modeller.lib
+.include ucuz_vericigovde.inc
+.tran 5u 1.5 0 5u uic
+.control
+run
+wrdata ucuz_verici.dat v(lfo) v(tonr) v(kirmizi) v(uzak)
+.endc
+.end
