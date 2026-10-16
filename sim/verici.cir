@@ -4,7 +4,7 @@ VB vcc 0 9
 * U1 titresim osilatoru
 R1 vcc dis1 10k
 R2 dis1 tc1 68k
-C2 tc1 0 4.7u
+C2 tc1 0 1u
 C3 cv1 0 10n
 XU1 vcc 0 tc1 tc1 cv1 dis1 lfo NE555
 R5 lfo cv2 10k

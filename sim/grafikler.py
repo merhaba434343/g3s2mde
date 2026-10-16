@@ -10,13 +10,13 @@ YESIL, KOYU, GRI, TURUNCU = "#0e7a5c", "#24413a", "#8fa39b", "#c2671b"
 d = np.loadtxt("verici.dat", usecols=(0, 1, 3, 5, 7))
 t, lfo, ton, kir, uzak = d.T
 fig, ax = plt.subplots(2, 1, figsize=(9, 5.2))
-m = (t > 1.0) & (t < 1.6)
+m = (t > 1.0) & (t < 1.3)
 s = ton > 4.5; i = np.where(~s[:-1] & s[1:])[0]
 te, f = t[i][1:], 1 / np.diff(t[i])
-k = (te > 1.0) & (te < 1.6)
+k = (te > 1.0) & (te < 1.3)
 ax[0].plot(te[k], f[k], color=YESIL, lw=1.6, label="U2 ton frekansı")
 ax2 = ax[0].twinx(); ax2.plot(t[m], lfo[m], color=GRI, lw=1, label="U1 çıkışı"); ax2.set_ylabel("U1 (V)"); ax2.grid(False)
-ax[0].set_ylabel("Hz"); ax[0].set_title("Verici: U1 tonu 2,1 Hz ile iki frekans arasında kaydırıyor", loc="left")
+ax[0].set_ylabel("Hz"); ax[0].set_title("Verici: U1 tonu saniyede ≈ 10 kez iki frekans arasında değiştiriyor", loc="left")
 m2 = (t > 1.200) & (t < 1.208)
 ax[1].plot((t[m2] - 1.2) * 1e3, kir[m2], color=KOYU, lw=1.4, label="Kırmızı klips")
 ax[1].plot((t[m2] - 1.2) * 1e3, uzak[m2], color=TURUNCU, lw=1.4, ls="--", label="3 km hattın uzak ucu")

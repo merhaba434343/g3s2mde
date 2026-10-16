@@ -1,7 +1,7 @@
 VB vcc 0 9
 R1t vcc dis1 10k
 R2t dis1 tc1 68k
-C2t tc1 0 4.7u
+C2t tc1 0 1u
 C3t cv1 0 10n
 XU1t vcc 0 tc1 tc1 cv1 dis1 lfo NE555
 R5t lfo cv2 10k
