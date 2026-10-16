@@ -1,0 +1,15 @@
+* tip_ring_5cm
+.include modeller.lib
+.include vericigovde.inc
+.include alici_govde.inc
+Ccpl uzak prob 0.005p
+* yakindaki 230 V sebeke hattindan uca kacak (varsayim 0,05 pF)
+Vm m 0 SIN(0 325 50)
+Cm m prob 0.05p
+.ic v(vref)=4.5 v(inp)=4.5 v(inn)=4.5 v(x)=4.5 v(o1)=4.5 v(o2)=4.5 v(sp)=4.5 v(j)=4.5
+.tran 5u 1.5 0 5u uic
+.control
+run
+wrdata tip_ring_5cm.dat v(uzak) v(inp) v(o1) v(ls)
+.endc
+.end

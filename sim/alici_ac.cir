@@ -1,0 +1,18 @@
+* Alici frekans cevabi: 1 V'luk damar, 0,15 pF kuplaj (~5 cm)
+.include modeller.lib
+.include alici_govde.inc
+Vw w 0 AC 1
+Ccpl w prob 0.15p
+.ac dec 50 10 100k
+.control
+run
+wrdata alici_ac.dat vdb(o1) vdb(inp) vdb(pot)
+meas ac g50 find vdb(o1) at=50
+meas ac g1k find vdb(o1) at=1000
+meas ac in1k find vdb(inp) at=1000
+meas ac in50 find vdb(inp) at=50
+meas ac p50 find vdb(pot) at=50
+meas ac p1k find vdb(pot) at=1000
+meas ac p742 find vdb(pot) at=742
+.endc
+.end

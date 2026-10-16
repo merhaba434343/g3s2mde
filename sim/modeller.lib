@@ -1,0 +1,39 @@
+* Davranissal modeller (ideal degil, odev simulasyonu icin)
+
+* NE555: pinler vcc gnd trig thr cv dis out
+.subckt NE555 vcc gnd trig thr cv dis out
+R1 vcc cv 5k
+R2 cv n2 5k
+R3 n2 gnd 5k
+Bq qraw gnd V = (v(trig,gnd) < v(n2,gnd)) ? 1 : ((v(thr,gnd) > v(cv,gnd)) ? 0 : (v(qd,gnd) > 0.5 ? 1 : 0))
+Rq qraw qd 1k
+Cq qd gnd 1p
+Bo o1 gnd V = v(qd,gnd) > 0.5 ? v(vcc,gnd)-1.7 : 0.1
+Ro o1 out 10
+Bd dis gnd I = v(qd,gnd) < 0.5 ? v(dis,gnd)/20 : 0
+.ends
+
+* TL071: A0=100 dB, GBW=3 MHz, egim 13 V/us, cikis raylardan ~1,5 V iceride
+.subckt TL071 inp inn vcc vee out
+Cin inp inn 3p
+Bm mid 0 V = (v(vcc)+v(vee))/2
+Bg mid b I = max(min(1*v(inp,inn), 0.7m), -0.7m)
+Rb b mid 100k
+Cb b mid 53n
+Bh hi 0 V = v(vcc)-0.9
+Bl lo 0 V = v(vee)+0.9
+Dh b hi DCLAMP
+Dl lo b DCLAMP
+.model DCLAMP D(Is=1e-14 N=1)
+Eo out 0 b 0 1
+.ends
+
+* LM386: kazanc 200 (pin 1-8 arasi 10uF), cikis Vcc/2 etrafinda, 50k giris direnci
+.subckt LM386 inp inn vcc gnd out
+Ri1 inp gnd 50k
+Ri2 inn gnd 50k
+Ba a gnd V = max(min(v(vcc,gnd)/2 + 200*v(inp,inn), v(vcc,gnd)-0.7), 0.7)
+Rp a b 1
+Cp b gnd 530n
+Ro b out 0.5
+.ends
